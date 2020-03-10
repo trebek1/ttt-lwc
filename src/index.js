@@ -1,5 +1,5 @@
 import { buildCustomElementConstructor } from 'lwc';
 
-import MyApp from 'my/app';
+import MyGame from 'my/game';
 
-customElements.define('my-app', buildCustomElementConstructor(MyApp));
+customElements.define('my-game', buildCustomElementConstructor(MyGame));

@@ -44,7 +44,6 @@ export const checkGameOver = (board, pos) => {
             return true;
         }
     }
-    // if every square is used end the game
     return false;
 };
 
