@@ -44,5 +44,15 @@ export const checkGameOver = (board, pos) => {
             return true;
         }
     }
+    // if every square is used end the game
     return false;
 };
+
+export function allUsed(board) {
+    return board.reduce((acc, curr) => {
+        if (curr.value === null) {
+            return false;
+        }
+        return acc;
+    }, true);
+}

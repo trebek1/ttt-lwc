@@ -1,10 +1,11 @@
 import { LightningElement, track } from 'lwc';
 import Player from 'models/player';
 import TTT from 'models/ttt';
-import { checkGameOver } from './gameUtils';
+import { allUsed, checkGameOver } from './gameUtils';
 
 const X = 'X';
 const O = 'O';
+const CAT = 'CAT';
 
 export default class Game extends LightningElement {
     activePlayer;
@@ -28,6 +29,10 @@ export default class Game extends LightningElement {
         if (target.value === null) {
             target.value = this.activePlayer.value;
             this.gameOver = checkGameOver(this.squares, position - 1);
+            if (allUsed(this.squares) && !this.gameOver) {
+                this.activePlayer = { value: CAT };
+                this.gameOver = true;
+            }
             if (!this.gameOver) {
                 this.switchPlayers();
             }
@@ -44,6 +49,8 @@ export default class Game extends LightningElement {
 
     resetGame() {
         this.squares = new TTT().value;
+        this.activePlayer = this.player1;
+        this.gameOver = false;
     }
 
     squareclickhandler(e) {

@@ -4,5 +4,11 @@
             onsquareclick={squareclickhandler}
             squares={squares}
         ></my-board>
+        <div class="message" if:true={gameOver}>
+            The winner is {activePlayer.value}
+        </div>
+        <div class="replay" if:true={gameOver} onclick={resetGame}>
+            Play Again?
+        </div>
     </div>
 </template>
