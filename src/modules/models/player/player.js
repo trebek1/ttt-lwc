@@ -1,7 +1,6 @@
 export default class Player {
     value = null;
-    constructor(symbol, tally) {
+    constructor(symbol) {
         this.value = symbol;
-        this.tally = tally;
     }
 }
