@@ -1,0 +1,7 @@
+<template>
+    <div class="board">
+        <template for:each={squares} for:item="square">
+            <my-square value={square.value} key={square.position}> </my-square>
+        </template>
+    </div>
+</template>
