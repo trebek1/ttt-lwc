@@ -1,29 +1,54 @@
 import { LightningElement, track } from 'lwc';
 import Player from 'models/player';
+import TTT from 'models/ttt';
+import { checkGameOver } from './gameUtils';
+
+const X = 'X';
+const O = 'O';
 
 export default class Game extends LightningElement {
-    activePlayer1 = true;
-    @track
-    squares = [];
+    activePlayer;
     player1;
     player2;
-    squareclickhandler(e) {
-        console.log('clicked!', e);
-    }
+    gameOver = false;
+
+    @track
+    squares = [];
+
     constructor() {
         super();
-        this.player1 = new Player('X');
-        this.player2 = new Player('O');
-        this.squares = [
-            { value: null, position: 1 },
-            { value: null, position: 2 },
-            { value: null, position: 3 },
-            { value: null, position: 4 },
-            { value: null, position: 5 },
-            { value: null, position: 6 },
-            { value: null, position: 7 },
-            { value: null, position: 8 },
-            { value: null, position: 9 }
-        ];
+        this.player1 = new Player(X);
+        this.player2 = new Player(O);
+        this.squares = new TTT().value;
+        this.activePlayer = this.player1;
+    }
+
+    updateBoard({ detail: { position, value } }) {
+        const target = this.squares[position - 1];
+        if (target.value === null) {
+            target.value = this.activePlayer.value;
+            this.gameOver = checkGameOver(this.squares, position - 1);
+            if (!this.gameOver) {
+                this.switchPlayers();
+            }
+        }
+    }
+
+    switchPlayers() {
+        if (this.activePlayer.value === X) {
+            this.activePlayer = this.player2;
+        } else {
+            this.activePlayer = this.player1;
+        }
+    }
+
+    resetGame() {
+        this.squares = new TTT().value;
+    }
+
+    squareclickhandler(e) {
+        if (!this.gameOver) {
+            this.updateBoard(e);
+        }
     }
 }

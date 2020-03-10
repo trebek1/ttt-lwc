@@ -1,8 +1,12 @@
 .square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 50px;
     width: 50px;
     min-width: 50px;
     min-height: 50px;
     border: 1px solid black;
     box-sizing: border-box;
+    cursor: pointer;
 }
