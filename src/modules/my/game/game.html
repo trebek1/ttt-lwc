@@ -1,5 +1,8 @@
 <template>
     <div class="game">
-        <my-board></my-board>
+        <my-board
+            onsquareclick={squareclickhandler}
+            squares={squares}
+        ></my-board>
     </div>
 </template>

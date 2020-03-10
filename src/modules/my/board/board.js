@@ -1,16 +1,21 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
 export default class Board extends LightningElement {
-    @track
-    squares = [
-        { value: '', position: 1 },
-        { value: '', position: 2 },
-        { value: '', position: 3 },
-        { value: '', position: 4 },
-        { value: '', position: 5 },
-        { value: '', position: 6 },
-        { value: '', position: 7 },
-        { value: '', position: 8 },
-        { value: '', position: 9 }
-    ];
+    @api
+    squares;
+
+    handleClick(e) {
+        e.stopPropagation();
+        const { position, value } = e.target;
+        const clickEvent = new CustomEvent('squareclick', {
+            cancelable: false,
+            composed: true,
+            bubbles: true,
+            detail: {
+                position,
+                value
+            }
+        });
+        this.dispatchEvent(clickEvent);
+    }
 }
